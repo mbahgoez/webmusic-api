@@ -1,6 +1,6 @@
 RewriteEngine On
 
-RewriteBase /webmusic-api-new/
+RewriteBase /
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
