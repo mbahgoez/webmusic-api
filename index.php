@@ -340,4 +340,55 @@ $app->delete("/api/category/{id}", function(){
 });
 
 
+
+
+
+
+
+
+
+//  PSB
+
+
+
+$app->get("/psb/jurusan", function(){
+	include "koneksi.php";
+	$data = $db->query("SELECT * FROM psb_jurusan")->fetchAll();
+	print_r(json_encode($data));
+});
+
+$app->get("/psb/agama", function(){
+	include "koneksi.php";
+	$data = $db->query("SELECT * FROM psb_agama")->fetchAll();
+	print_r(json_encode($data));
+});
+
+$app->get("/psb/asalsekolah", function(){
+	include "koneksi.php";
+	$data = $db->query("SELECT * FROM psb_asalsekolah")->fetchAll();
+	print_r(json_encode($data));
+});
+$app->get("/psb/siswa", function(){
+	include "koneksi.php";
+
+	// SELECT psb_siswa.nisn, psb_siswa.nama_siswa AS nama, psb_siswa.jenis_kelamin, psb_agama.nama_agama as agama, psb_asalsekolah.nama_sekolah as asal_sekolah, psb_jurusan.nama_jurusan as jurusan, psb_siswa.alamat, psb_siswa.telp
+	// FROM psb_siswa
+	// LEFT JOIN psb_agama
+	// ON psb_siswa.id_agama=psb_agama.id_agama
+	// LEFT JOIN psb_asalsekolah
+	// ON psb_siswa.id_sekolah=psb_asalsekolah.id_sekolah
+	// LEFT JOIN psb_jurusan
+	// ON psb_siswa.id_jurusan=psb_jurusan.id_jurusan
+	$data = $db->query("SELECT psb_siswa.nisn, psb_siswa.nama_siswa AS nama, psb_siswa.jenis_kelamin, psb_agama.nama_agama as agama, psb_asalsekolah.nama_sekolah as asal_sekolah, psb_jurusan.nama_jurusan as jurusan, psb_siswa.alamat, psb_siswa.telp
+FROM psb_siswa
+LEFT JOIN psb_agama
+ON psb_siswa.id_agama=psb_agama.id_agama
+LEFT JOIN psb_asalsekolah
+ON psb_siswa.id_sekolah=psb_asalsekolah.id_sekolah
+LEFT JOIN psb_jurusan
+ON psb_siswa.id_jurusan=psb_jurusan.id_jurusan")->fetchAll();
+	print_r(json_encode($data));
+});
+
+
 $app->run();
